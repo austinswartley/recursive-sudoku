@@ -12,18 +12,32 @@
 import math 
 
 def printBoard(board):
-    #prints a passed in sudoku board. board is represented by a 2D list
-    for row in board:
-        # save below if i add command line 
-        #rowLength = len(row)
-        #boxes = int(math.sqrt(rowLength)) # will always be valid by the nature of sudoku 
-        for idx in range(0,len(row)):
-            
-            print(row[idx], end=" ")
-        print()
-
+    boxLen = int(math.sqrt(len(board[0])))
+    for i in range(len(board)):
+        if i % boxLen == 0 and i != 0:
+            print("-" * ((len(board))*boxLen + 1))
+        for j in range(len(board[0])):
+            if j % boxLen == 0 and j != 0:
+                print("| ", end="")
+            if j == len(board) - 1:
+                print(board[i][j])
+            else:
+                print(str(board[i][j]) + " ", end="")
+        
 def isValid():
     pass
+
+def findEmpty(board):
+    for i in range(len(board)):
+        for j in range(len(board)):
+            if board[i][j] == 0:
+                return (i, j) # row, col 
+
 if __name__ == '__main__':
-    board = [[0, 1, 0, 0], [2, 0, 0, 0], [0,0,0,0],[0,0,0,0]]
-    printBoard(board)
+    board = [
+            [0,1,0,0],
+            [2,0,0,0],
+            [0,0,3,0],
+            [0,0,0,4]]
+    empty = findEmpty(board)
+    print(empty)
