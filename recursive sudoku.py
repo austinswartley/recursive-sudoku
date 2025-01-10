@@ -11,6 +11,7 @@
 # - GUI interface insead of command line
 
 import math 
+import time 
 
 the_board = [[0,0,0,0,0,0,0,0,0,],
              [0,0,0,0,0,0,0,0,0,],
@@ -60,7 +61,7 @@ def findEmpty(board):
                 return (i, j) # row, col 
     return None               #for base case
 
-def solve(board):
+def solve(board, visualize):
     pos = findEmpty(board)
     if not pos:
         return True
@@ -70,7 +71,11 @@ def solve(board):
     for i in range(1, len(board) + 1):
         if isValid(board, i, (row,col)):
             board[row][col] = i
-            if solve(board):
+            if visualize == True:
+                printBoard(board)
+                print()
+                time.sleep(.5)
+            if solve(board, visualize):
                 return True
             
             board[row][col] = 0
@@ -78,10 +83,17 @@ def solve(board):
     return False
 
 if __name__ == '__main__':
+    #printBoard(the_board)
+    
+    print("Visualize the algorithm? Y/N:", end="")
+    x = input()
+    print()
+
+    if x.upper() == "Y":
+        solve(the_board, True)
+    else:
+        solve(the_board, False)
     printBoard(the_board)
-    solve(the_board)
-    print()
-    print()
-    print()
-    printBoard(the_board)
+
+    
       
