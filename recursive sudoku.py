@@ -7,11 +7,11 @@
 # future goals: 
 # - generate a valid starting board
 # - manual solving
-# - visualize the algirithm as it works
 # - GUI interface insead of command line
 
 import math 
 import time 
+import random
 
 the_board = [[0,0,0,0,0,0,0,0,0,],
              [0,0,0,0,0,0,0,0,0,],
@@ -82,6 +82,16 @@ def solve(board, visualize):
     
     return False
 
+
+def generate(board):
+    for i in range(0,10):
+        pos_x = random.randint(0,8)
+        pos_y = random.randint(0,8)
+        num = random.randint(1,9)
+        if isValid(board, i, (pos_x,pos_y)):
+            board[pos_x][pos_y] = num
+    return board
+
 if __name__ == '__main__':
     #printBoard(the_board)
     
@@ -89,10 +99,16 @@ if __name__ == '__main__':
     x = input()
     print()
 
+    the_board = generate(the_board)
+
+    print("Starting Board")
+    print()
+    printBoard(the_board)
     if x.upper() == "Y":
         solve(the_board, True)
     else:
         solve(the_board, False)
+        print()
     printBoard(the_board)
 
     
